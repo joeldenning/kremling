@@ -90,7 +90,7 @@ export function newCharacter(exportsParse, char, index) {
             } else if (/[a-zA-z0-9]+/.test(char)) {
                 // just let the current word accrue more letters
             } else {
-                console.log(`Unknown char ${char}`);
+                // console.log(`Unknown char ${char}`);
             }
         break;
     }
@@ -108,7 +108,7 @@ function checkExportedThingsChanged(parse) {
      * as part of the current word
     */
     const relevantWord = currentWord.substring(0, currentWord.length - 1);
-    console.log(`check things changed -- '${relevantWord}'`);
+    // console.log(`check things changed -- '${relevantWord}'`);
 
     for (let i=0; i<parse.length; i++) {
         const nameOfExp = parse[i].name;
@@ -127,7 +127,7 @@ function endOfStatement(parse, char, index) {
     }
 
     if (parenLevel === 0 && bracesLevel === 0 && hasDefaultExport && !addedDefaultExportMutation && index > endOfDefaultExport) {
-        console.log(`EXPORTING_____________ 'default'`)
+        // console.log(`EXPORTING_____________ 'default'`)
         addedDefaultExportMutation = true;
         exportChanges.push({
             name: 'default',
@@ -135,7 +135,7 @@ function endOfStatement(parse, char, index) {
         });
     }
     for (let i=0; i<thingsToExport.length; i++) {
-        console.log(`EXPORTING_____________ '${thingsToExport[i]}'`)
+        // console.log(`EXPORTING_____________ '${thingsToExport[i]}'`)
         exportChanges.push({
             name: thingsToExport[i],
             insertionIndex: index,

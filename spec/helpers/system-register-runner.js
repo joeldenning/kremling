@@ -1,4 +1,7 @@
 'use strict';
+const fs = require('fs');
+const kremling = require(process.cwd() + '/lib/kremling.js');
+
 const modules = {};
 
 let nextModName;
@@ -76,6 +79,10 @@ global.System = {
     }
 };
 
-module.exports = {
-    getMainModule: () => modules['ENTRY_MODULE'].exports
+exports.import = function(filepath) {
+    const entryFile = fs.readFileSync(filepath, 'utf8');
+    const compiled = kremling.compile(entryFile);
+    eval(compiled);
+
+    return modules['ENTRY_MODULE'].exports
 };

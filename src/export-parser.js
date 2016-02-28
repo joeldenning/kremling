@@ -161,7 +161,7 @@ function reset(char, index) {
 }
 
 function addNewExport(char, index, opts) {
-    console.dir(opts);
+    // console.dir(opts);
     exportedThings.push(opts);
     reset(char, index);
 }

@@ -15,7 +15,7 @@ export function toSystemRegister(source, exportedThings, exportUpdates) {
         return getRelevantIndex(second) - getRelevantIndex(first);
     });
 
-    console.dir(mutationsToPerform)
+    // console.dir(mutationsToPerform)
 
     mutationsToPerform
     .forEach((mutation) => {
@@ -28,7 +28,7 @@ export function toSystemRegister(source, exportedThings, exportUpdates) {
         }
     });
 
-    console.dir('--------------------------------------------------------')
+    // console.dir('--------------------------------------------------------')
 
     const result =
 `System.register([], function($__export) {

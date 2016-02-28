@@ -10,7 +10,10 @@ const jsIdentifierRegex = /^[$A-Z_][0-9A-Z_$]*$/i;
  * a less functional and more imperative style.
  */
 function compile(string) {
-    console.log(string + '\n------------------------------------------\n')
+    if (typeof string !== 'string') {
+        throw new Error(`Cannot compile a non-string '${typeof string}' -- '${string}'`);
+    }
+    // console.log(string + '\n------------------------------------------\n')
     exportParser.init();
     let currentLine = 1;
     let currentCharacterNumber = 1;
@@ -27,7 +30,7 @@ function compile(string) {
         }
     }
 
-    console.log('\n----------------------------------------\n');
+    // console.log('\n----------------------------------------\n');
 
     const exportsParse = exportParser.getParse();
 
@@ -47,7 +50,7 @@ function compile(string) {
         }
     }
 
-    console.log('\n----------------------------------------\n');
+    // console.log('\n----------------------------------------\n');
 
     const exportUpdates = exportUpdater.getUpdates();
 
