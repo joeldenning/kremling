@@ -4,8 +4,10 @@
   "description": "",
   "main": "lib/es6-module-compiler.js",
   "scripts": {
-    "build": "rollup -c",
-    "test": "jasmine"
+    "clean": "rm -rf lib",
+    "build": "npm run clean && rollup -c",
+    "test": "jasmine",
+    "prepublish": "npm run build"
   },
   "author": "",
   "license": "Apache 2.0",
