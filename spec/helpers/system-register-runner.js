@@ -81,7 +81,12 @@ global.System = {
 exports.import = function(filepath) {
     const entryFile = fs.readFileSync(filepath, 'utf8');
     const compiled = kremling.compile(entryFile);
-    eval(compiled);
+    try {
+        eval(compiled);
+    } catch (ex) {
+        console.error(`Failed to parse ${filepath}\n---------\n${compiled}\n----------`);
+        throw ex;
+    }
 
     return modules['ENTRY_MODULE'].exports
 };

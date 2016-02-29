@@ -5,8 +5,8 @@ let parenLevel,
     bracesLevel,
     currentWord,
     mostRecentDelimiter,
-    thingsToExport = [],
-    exportChanges = [],
+    thingsToExport,
+    exportChanges,
     hasDefaultExport,
     endOfDefaultExport,
     addedDefaultExportMutation,
@@ -16,6 +16,8 @@ let parenLevel,
 export function init(exportsParse) {
     currentWord = '';
     resetWord([], null, -1);
+    exportChanges = [];
+    thingsToExport = [];
     endOfStatement([], null, -1);
     parenLevel = 0;
     bracesLevel = 0;
@@ -134,7 +136,7 @@ function endOfStatement(parse, char, index) {
         index--;
     }
 
-    if (parenLevel === 0 && bracesLevel === 0 && hasDefaultExport && !addedDefaultExportMutation && index > endOfDefaultExport) {
+    if (parenLevel === 0 && bracesLevel === 0 && hasDefaultExport && !addedDefaultExportMutation && index > endOfDefaultExport && !nameOfDefaultExport) {
         // console.log(`EXPORTING_____________ 'default'`)
         addedDefaultExportMutation = true;
         exportChanges.push({

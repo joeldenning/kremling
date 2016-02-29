@@ -3,9 +3,6 @@ import * as exportParser from './export-parser.js';
 import * as writer from './system-register.writer.js';
 import * as exportUpdater from './export-updater.js';
 
-let blockDepth = 0;
-const jsIdentifierRegex = /^[$A-Z_][0-9A-Z_$]*$/i;
-
 /* In regards to performance, I worry about excessive iteration, which is why there is
  * a less functional and more imperative style.
  */
@@ -62,7 +59,7 @@ if (exports) {
     exports.compile = compile;
 } else if (typeof window !== 'undefined') {
     // browser
-    window.es6ToSystemRegister = compile;
+    window.kremling = compile;
 } else if (typeof self !== 'undefined') {
-    self.es6ToSystemRegister = compile;
+    self.kremling = compile;
 }
