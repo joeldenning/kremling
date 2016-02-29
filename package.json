@@ -11,6 +11,9 @@
   },
   "author": "",
   "license": "Apache 2.0",
+  "bin": {
+    "kremling": "bin/kremling.js"
+  },
   "devDependencies": {
     "babel-core": "^6.5.2",
     "babel-plugin-transform-object-rest-spread": "^6.5.0",
