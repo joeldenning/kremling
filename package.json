@@ -2,7 +2,7 @@
   "name": "kremling",
   "version": "0.1.2",
   "description": "",
-  "main": "lib/es6-module-compiler.js",
+  "main": "lib/kremling.js",
   "scripts": {
     "clean": "rm -rf lib",
     "build": "npm run clean && rollup -c",
