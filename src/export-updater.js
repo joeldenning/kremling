@@ -54,7 +54,12 @@ export function newCharacter(exportsParse, char, index) {
         break;
 
         case ';':
-            endOfStatement(exportsParse, char, index);
+            // what we really want from this if statement is if we're not inside of an expression or object literal
+            if (bracesLevel === 0 && parenLevel === 0) {
+                endOfStatement(exportsParse, char, index);
+            } else {
+                resetWord(exportsParse, char, index);
+            }
         break;
 
         case '{':
