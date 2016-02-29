@@ -1,6 +1,6 @@
 {
   "name": "kremling",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "",
   "main": "lib/es6-module-compiler.js",
   "scripts": {
