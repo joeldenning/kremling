@@ -2,7 +2,7 @@
 const fs = require('fs');
 const kremling = require(process.cwd() + '/lib/kremling.js');
 
-const modules = {};
+let modules = {};
 
 let nextModName;
 
@@ -37,7 +37,7 @@ global.System = {
             });
 
             if (!depIsLoaded) {
-                require('../' + depName);
+                compileAndRun(process.cwd() + '/' + depName);
             }
 
             // now that the dep is loaded
@@ -79,6 +79,15 @@ global.System = {
 };
 
 exports.import = function(filepath) {
+    //ensure each test has it's own sandbox
+    modules = {};
+    nextModName = null;
+
+    compileAndRun(filepath);
+    return modules['ENTRY_MODULE'].exports;
+};
+
+function compileAndRun(filepath) {
     const entryFile = fs.readFileSync(filepath, 'utf8');
     const compiled = kremling.compile(entryFile);
     try {
@@ -87,6 +96,4 @@ exports.import = function(filepath) {
         console.error(`Failed to parse ${filepath}\n---------\n${compiled}\n----------`);
         throw ex;
     }
-
-    return modules['ENTRY_MODULE'].exports
-};
+}

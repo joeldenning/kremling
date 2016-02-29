@@ -2,6 +2,7 @@
 import * as exportParser from './export-parser.js';
 import * as writer from './system-register.writer.js';
 import * as exportUpdater from './export-updater.js';
+import * as importParser from './import-parser.js';
 
 /* In regards to performance, I worry about excessive iteration, which is why there is
  * a less functional and more imperative style.
@@ -12,6 +13,7 @@ function compile(string) {
     }
     // console.log(string + '\n------------------------------------------\n')
     exportParser.init();
+    importParser.init();
     let currentLine = 1;
     let currentCharacterNumber = 1;
     for (let i=0; i<string.length; i++) {
@@ -21,9 +23,14 @@ function compile(string) {
         } else {
             currentCharacterNumber++;
         }
-        const err = exportParser.newCharacter(string[i], i);
-        if (err) {
-            throw new Error(`On line ${currentLine}, character ${currentCharacterNumber}: ${err.msg} -- "${string.substring(err.startIndex, err.endIndex).trim()}"`);
+        const errExports = exportParser.newCharacter(string[i], i);
+        if (errExports) {
+            throw new Error(`On line ${currentLine}, character ${currentCharacterNumber}: ${errExports.msg} -- "${string.substring(errExports.startIndex, errExports.endIndex).trim()}"`);
+        }
+
+        const errImports = importParser.newCharacter(string[i], i);
+        if (errImports) {
+            throw new Error(`On line ${currentLine}, character ${currentCharacterNumber}: ${errImports.msg} -- "${string.substring(errImports.startIndex, errImports.endIndex).trim()}"`);
         }
     }
 
@@ -50,8 +57,9 @@ function compile(string) {
     // console.log('\n----------------------------------------\n');
 
     const exportUpdates = exportUpdater.getUpdates();
+    const importedThings = importParser.getImports();
 
-    return writer.toSystemRegister(string, exportsParse, exportUpdates);
+    return writer.toSystemRegister(string, exportsParse, exportUpdates, importedThings);
 }
 
 if (exports) {
