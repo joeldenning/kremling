@@ -8,7 +8,6 @@ let nextModName;
 
 global.System = {
     register: (depNames, func) => {
-        // console.log('here');
         const modName = nextModName ? nextModName : 'ENTRY_MODULE';
 
         if (!modules[modName]) {

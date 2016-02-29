@@ -1,15 +1,17 @@
 /* Shadowed variables are our enemy
  */
 
-let parenLevel;
-let bracesLevel;
-let currentWord;
-let mostRecentDelimiter;
-let thingsToExport = [];
-let exportChanges = [];
-let hasDefaultExport;
-let endOfDefaultExport;
-let addedDefaultExportMutation;
+let parenLevel,
+    bracesLevel,
+    currentWord,
+    mostRecentDelimiter,
+    thingsToExport = [],
+    exportChanges = [],
+    hasDefaultExport,
+    endOfDefaultExport,
+    addedDefaultExportMutation,
+    nameOfDefaultExport;
+    ;
 
 export function init(exportsParse) {
     currentWord = '';
@@ -23,6 +25,7 @@ export function init(exportsParse) {
     if (defaultExports.length === 1) {
         hasDefaultExport = true;
         endOfDefaultExport = defaultExports[0].endDelete;
+        nameOfDefaultExport = defaultExports[0].name;
     } else {
         hasDefaultExport = false;
         endOfDefaultExport = null;
@@ -131,13 +134,20 @@ function endOfStatement(parse, char, index) {
         addedDefaultExportMutation = true;
         exportChanges.push({
             name: 'default',
+            value: null, /* deduced by system-register-writer */
             insertionIndex: index,
         });
     }
     for (let i=0; i<thingsToExport.length; i++) {
-        // console.log(`EXPORTING_____________ '${thingsToExport[i]}'`)
+        // console.log(`EXPORTING named export '${thingsToExport[i]}'`)
+        let name = thingsToExport[i];
+        if (hasDefaultExport && !addedDefaultExportMutation && index > endOfDefaultExport && nameOfDefaultExport === thingsToExport[i]) {
+            addedDefaultExportMutation = true;
+            name = 'default'
+        }
         exportChanges.push({
-            name: thingsToExport[i],
+            name,
+            value: thingsToExport[i],
             insertionIndex: index,
         });
     }

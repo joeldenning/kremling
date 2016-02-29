@@ -44,7 +44,15 @@ export function toSystemRegister(source, exportedThings, exportUpdates) {
 }
 
 function applyExportUpdateMutation(string, exportUpdate) {
-    const mutation = `$__export('${exportUpdate.name}', ${exportUpdate.name === 'default' ? nameOfDefaultExportVar : exportUpdate.name});`;
+    let exportedValue;
+    if (exportUpdate.value) {
+        exportedValue = exportUpdate.value;
+    } else if (exportUpdate.name === 'default') {
+        exportedValue = nameOfDefaultExportVar;
+    } else {
+        exportedValue = exportUpdate.name;
+    }
+    const mutation = `$__export('${exportUpdate.name}', ${exportedValue});`;
     return string.substring(0, exportUpdate.insertionIndex + 1)
     + (string[exportUpdate.insertionIndex] === ';' ? '' : ';')
     + mutation
