@@ -19,7 +19,7 @@ kremling my-es6-module.js
 The compiled es6 module will be printed to stdout.
 
 ## Javascript api
-```
+```js
 import { compile } from 'kremling';
 const compiledString = compile(`import path from 'path'`);
 console.log(compiledString);
