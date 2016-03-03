@@ -108,6 +108,7 @@ function importedVariables(importedThings) {
         importedThings
         .map(importedThing => {
             return (importedThing.defaultImportName ? importedThing.defaultImportName : '')
+                + (importedThing.defaultImportName && importedThing.namedImports && importedThing.namedImports.length > 0 ? ', ' : '')
                 + importedThing.namedImports.map(namedImport => (namedImport.alias ? namedImport.alias : namedImport.name))
         })
         .join(', ')
