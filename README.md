@@ -19,6 +19,7 @@ Kremling is a look-ahead 0, two-pass compiler. In order to keep with the purpose
 During the first pass, two distinct state machines are executed in order to parse what is imported and what is exported. During the second pass, another state machine is executed in order to determine where to put the `$__export('key', val)` statements in the code.
 
 Other implementation decisions include:
+- Behavior driven development -- sine there is no AST, we need *lots* of good tests in order to have confidence when making changes to the source code.
 - Favor excessive `$__export(...)`ing over missing an `$__export(...)` that is required for correctness.
 - Be smart about understanding where functions start and stop, but don't try to understand everything in the function.
 
