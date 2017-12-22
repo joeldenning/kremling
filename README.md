@@ -1,4 +1,6 @@
 # kremling
+(Note that this project is no longer actively maintained and can no longer be found on npm)
+
 The smallest, fastest es6 module to [System.register](https://github.com/ModuleLoader/es6-module-loader/blob/master/docs/system-register.md) compiler you'll find. Kremling only compiles the `import` and `export` statements, it doesn't actually compile the rest of es6+ down to es5.
 
 Salient features:
@@ -22,16 +24,6 @@ Other implementation decisions include:
 - Behavior driven development -- sine there is no AST, we need *lots* of good tests in order to have confidence when making changes to the source code.
 - Favor excessive `$__export(...)`ing over missing an `$__export(...)` that is required for correctness.
 - Be smart about understanding where functions start and stop, but don't try to understand everything in the function.
-
-# Installation
-```bash
-npm install kremling
-```
-or, if you want the cli to always be available:
-```bash
-npm install -g kremling
-```
-
 # Usage
 
 ## As a CLI
